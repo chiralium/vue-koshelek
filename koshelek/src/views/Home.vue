@@ -1,13 +1,17 @@
 <template>
   <div class="home">
-    <h1>Home page</h1>
+    <dataset/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Dataset from '@/components/Dataset';
 
 export default Vue.extend({
   name: 'Home',
+  components: {
+    Dataset,
+  }
 });
 </script>
