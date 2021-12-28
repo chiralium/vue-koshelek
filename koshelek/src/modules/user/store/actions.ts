@@ -1,0 +1,4 @@
+export const USER_ACTIONS_TYPE = {
+    SET_IS_LOADING: 'SET_IS_LOADING',
+    SET_USER_LIST: 'SET_USER_LIST',
+};
