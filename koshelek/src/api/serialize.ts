@@ -1,43 +1,43 @@
 import {TAnyKeyVal} from "@/types";
 
-export interface IModel<T, A = any> {
-    fromJson: ({...args}: A) => T;
-}
-
 type TSerialize<T> = {
-    schema: T,
+    converter: ({...args}) => T,
     json: string,
+    root?: string,
 }
 
-export class Serialize<T extends IModel<T>, K> {
-    schema: T;
+export class Serialize<T, K> {
     model: any;
     json: string;
+    root?: string;
+    converter: ({...args}) => T;
 
-    constructor({schema, json}: TSerialize<T>) {
-        this.schema = schema;
+    constructor({converter, json, root}: TSerialize<T>) {
+        this.converter = converter;
         this.json = json;
-        this.model = schema
-            .fromJson({});
+        this.root = root;
+        this.model = converter({});
     }
 
     private createModel = (): void => {
-        let jsonObject: TAnyKeyVal;
+        let jsonObject;
 
         try {
             jsonObject = JSON.parse(this.json);
 
+            if (this.root) {
+                jsonObject = jsonObject[this.root];
+            }
+
             if (Array.isArray(jsonObject)) {
                 this.model = jsonObject.map(jsonItem => {
-                    return this.schema
-                        .fromJson({...jsonItem});
+                    return this.converter({...jsonItem});
                 });
 
                 return;
             }
 
-            this.model = this.schema
-                .fromJson({...jsonObject});
+            this.model = this.converter({...jsonObject});
         } catch (e) {
             console.error(e);
         }

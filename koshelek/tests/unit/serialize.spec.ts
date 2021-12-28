@@ -1,4 +1,4 @@
-import {IModel, Serialize} from "@/api/serialize";
+import {Serialize} from "@/api/serialize";
 
 describe('Serializer test', () => {
   it('Serialize json (Simple model)', () => {
@@ -15,7 +15,7 @@ describe('Serializer test', () => {
           friends?: Array<string>;
       }
 
-      class User implements IModel<User> {
+      class User {
           name?: string;
           friends?: Friend[] | undefined;
 
@@ -24,7 +24,7 @@ describe('Serializer test', () => {
               this.friends = args.friends?.map(friend => new Friend(friend))
           }
 
-          fromJson({...args}: TUserArg): User {
+          public static fromJson({...args}: TUserArg): User {
               return new User({...args});
           }
       }
@@ -48,7 +48,7 @@ describe('Serializer test', () => {
       });
 
       const model = new Serialize<User, User>({
-          schema: new User({}),
+          converter: User.fromJson,
           json,
       }).getModel();
 
@@ -69,7 +69,7 @@ describe('Serializer test', () => {
           dateAdded?: string;
       }
 
-      class Friend implements IModel<Friend, TFriendArgs> {
+      class Friend {
           name?: string;
           age?: number;
           dateAdded?: string;
@@ -80,13 +80,13 @@ describe('Serializer test', () => {
               this.dateAdded = args.dateAdded;
           }
 
-          fromJson({...args}: TFriendArgs): Friend {
+          public static fromJson({...args}: TFriendArgs): Friend {
               return new Friend({...args});
           }
 
       }
 
-      class User implements IModel<User, TUserArgs> {
+      class User {
          name?: string;
          age?: number;
          friends?: Array<Friend> | undefined;
@@ -97,7 +97,7 @@ describe('Serializer test', () => {
              this.friends = args.friends?.map(friend => new User({...friend}));
          }
 
-          fromJson({...args}: TUserArgs): User {
+          public static fromJson({...args}: TUserArgs): User {
               return new User({...args});
           }
      }
@@ -137,7 +137,7 @@ describe('Serializer test', () => {
      });
 
      const model = new Serialize<User, User>({
-         schema: new User({}),
+         converter: User.fromJson,
          json: json,
      }).getModel();
 
