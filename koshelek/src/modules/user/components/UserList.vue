@@ -1,5 +1,5 @@
 <template>
-  <ul class="user-list">
+  <ul :class="[isLoading ? 'preloader' : '', 'user-list']">
     <li v-for="user in userList" v-bind:key="user.email">
       <user-item :user="user"/>
     </li>
@@ -39,6 +39,8 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
+@import "../../../style/global";
+
 .user-list {
   list-style: none;
   padding: 0;
@@ -47,6 +49,8 @@ export default Vue.extend({
   grid-template-columns: 1fr;
   gap: 8px;
   overflow-y: scroll;
+  min-height: ~"calc(100vh - 64px)";
   max-height: ~"calc(100vh - 64px)";
+  position: relative;
 }
 </style>
