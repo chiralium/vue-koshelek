@@ -1,20 +1,16 @@
 <template>
-  <div>
-    <div v-if="isLoading">Loading</div>
-    <div v-else>
-      <ul>
-        <li v-for="user in userList" v-bind:key="user.email">
-          {{user.name.last}}
-        </li>
-      </ul>
-    </div>
-  </div>
+  <ul class="user-list">
+    <li v-for="user in userList" v-bind:key="user.email">
+      <user-item :user="user"/>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {mapActions, mapGetters} from 'vuex';
-import UserApi from '@/modules/user/api';
+
+import UserItem from "@/modules/user/components/UserItem.vue";
 
 export default Vue.extend({
   methods: {
@@ -33,7 +29,24 @@ export default Vue.extend({
 
   mounted() {
     this.fetchUserList();
+  },
+
+  components: {
+    UserItem,
   }
 })
 
 </script>
+
+<style lang="less">
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  overflow-y: scroll;
+  max-height: ~"calc(100vh - 64px)";
+}
+</style>

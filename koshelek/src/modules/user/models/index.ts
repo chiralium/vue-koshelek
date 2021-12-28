@@ -14,6 +14,10 @@ class UserName {
         this.first = args.first;
         this.last = args.last;
     }
+
+    public toString() {
+        return `${this.title} ${this.first} ${this.last}`;
+    }
 }
 
 type TUserLocationStreetA = {
