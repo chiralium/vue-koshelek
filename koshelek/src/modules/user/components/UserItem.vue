@@ -2,10 +2,10 @@
   <div class="user">
     <div class="user__grid">
       <div class="user__image">
-        <img :src="user.picture.thumbnail"  :alt="user.name"/>
+        <img :src="source.picture.thumbnail"  :alt="source.name"/>
       </div>
       <div class="user__name">
-        {{user.name}}
+        {{source.name}}
       </div>
     </div>
     <expanded>
@@ -14,10 +14,10 @@
       </template>
       <template v-slot:content>
         <div class="user__details">
-          <p>Email: {{user.email}}</p>
-          <p>Sex: {{user.gender}}</p>
-          <p>Location: {{user.location}}</p>
-          <p>Age: {{user.dob.age}}</p>
+          <p>Email: {{source.email}}</p>
+          <p>Sex: {{source.gender}}</p>
+          <p>Location: {{source.location}}</p>
+          <p>Age: {{source.dob.age}}</p>
         </div>
       </template>
     </expanded>
@@ -33,10 +33,10 @@ import Expanded from "@/components/Expanded.vue";
 
 export default Vue.extend({
   props: {
-    user: {
+    source: {
       type: User,
       required: true,
-    },
+    }
   },
 
   computed: {
@@ -56,6 +56,7 @@ export default Vue.extend({
   padding: 4px;
   position: relative;
   transition: height ease-out .3s;
+  margin-bottom: 12px;
 
   &__expand-ico {
     font-size: 12px;

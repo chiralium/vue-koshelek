@@ -3,7 +3,7 @@ import {User} from "@/modules/user/models";
 import {Serialize} from "@/api/serialize";
 
 
-const limit = 25;
+const limit = 5000;
 export default class UserApi extends BaseApi {
     constructor() {
         super('https://randomuser.me/');

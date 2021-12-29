@@ -137,4 +137,8 @@ export class User {
     public static fromJson =({...args}: TUserA): User => {
         return new User({...args});
     }
+
+    get id(): string {
+        return (this.name ?? '') + (this.email ?? '');
+    }
 }

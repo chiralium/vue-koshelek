@@ -1,9 +1,10 @@
 <template>
-  <ul :class="[isLoading ? 'preloader' : '', 'user-list']">
-    <li v-for="user in userList" v-bind:key="user.email + user.name">
-      <user-item :user="user"/>
-    </li>
-  </ul>
+  <virtual-list
+      :class="[isLoading ? 'preloader' : '', 'user-list']"
+      :data-key="'id'"
+      :data-sources="userList"
+      :data-component="UserItem"
+  />
 </template>
 
 <script lang="ts">
@@ -11,6 +12,9 @@ import Vue from 'vue';
 import {mapActions, mapGetters} from 'vuex';
 
 import UserItem from "@/modules/user/components/UserItem.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import VirtualList from 'vue-virtual-scroll-list'
 
 export default Vue.extend({
   methods: {
@@ -31,8 +35,14 @@ export default Vue.extend({
     this.fetchUserList();
   },
 
+  data: function () {
+    return {
+      UserItem,
+    }
+  },
+
   components: {
-    UserItem,
+    VirtualList,
   }
 })
 
@@ -45,9 +55,6 @@ export default Vue.extend({
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
   overflow-y: scroll;
   min-height: ~"calc(100vh - 64px)";
   max-height: ~"calc(100vh - 64px)";
