@@ -1,6 +1,6 @@
 <template>
   <ul :class="[isLoading ? 'preloader' : '', 'user-list']">
-    <li v-for="user in userList" v-bind:key="user.email">
+    <li v-for="user in userList" v-bind:key="user.email + user.name">
       <user-item :user="user"/>
     </li>
   </ul>

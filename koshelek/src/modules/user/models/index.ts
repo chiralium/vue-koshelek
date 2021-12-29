@@ -72,6 +72,10 @@ class UserLocation {
         this.postcode = args.postcode;
         this.timezone = args.timezone;
     }
+
+    toString() {
+        return `${this.postcode}, ${this.country}, ${this.city}`;
+    }
 }
 
 type TUserDobA = {
