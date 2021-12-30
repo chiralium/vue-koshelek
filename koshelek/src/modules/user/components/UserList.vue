@@ -43,7 +43,6 @@ import UserItem from "@/modules/user/components/UserItem.vue";
 import VirtualList from 'vue-virtual-scroll-list'
 import Container from "@/components/Container.vue";
 import SearchField from "@/components/SearchField.vue";
-import {TSorting} from "@/modules/user/store";
 
 export default Vue.extend({
   methods: {
