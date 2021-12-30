@@ -24,8 +24,7 @@
           <p>Location: {{source.location}}</p>
           <p>Age: {{source.dob.age}}</p>
           <p>Date: {{source.dob.date}}</p>
-          <p>Time: {{source.location.timezone.description}}</p>
-          <p>Data: {{source.occurrencesKeysList}}</p>
+          <p>Timezone: {{source.location.timezone.description}}</p>
         </div>
       </template>
     </expanded>
