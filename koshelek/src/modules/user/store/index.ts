@@ -24,6 +24,7 @@ type TState = {
     isLoading: boolean;
     userList: Array<User>;
     filteredList: Array<User>;
+    favorites: Array<User>;
     searchQuery: string;
     sorting: TSorting;
 }
@@ -37,8 +38,9 @@ const userApi = new UserApi();
 const state = (): TState => ({
     isLoading: false,
     userList: [],
-    searchQuery: '',
     filteredList: [],
+    favorites: [],
+    searchQuery: '',
     sorting: 'ASC',
 });
 
@@ -65,6 +67,10 @@ const actions ={
 
     setSorting({commit}: TActionA, sorting: TSorting): void {
         commit(USER_ACTIONS_TYPE.SET_SORTING, sorting);
+    },
+
+    removeAtIndex({commit}: TActionA, index: number): void {
+        commit(USER_ACTIONS_TYPE.REMOVE, index);
     }
 };
 
@@ -133,6 +139,10 @@ const mutations = {
 
     [USER_ACTIONS_TYPE.SET_SORTING] (state: TState, sorting: TSorting): void {
         state.sorting = sorting;
+    },
+
+    [USER_ACTIONS_TYPE.REMOVE] (state: TState, index: number): void {
+        state.userList.splice(index, 1);
     }
 }
 

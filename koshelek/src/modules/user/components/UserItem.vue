@@ -7,6 +7,7 @@
       <div class="user__name">
         {{source.name}}
       </div>
+      <button class="user__add" @click="removeAtIndex(index)">★</button>
     </div>
 
     <div class="user__occurrences" v-if="searchQuery !== ''  && source.occurrencesKeysList.length > 0">
@@ -34,7 +35,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {User} from "../models";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 import Expanded from "@/components/Expanded.vue";
 
@@ -43,11 +44,20 @@ export default Vue.extend({
     source: {
       type: User,
       required: true,
-    }
+    },
+
+    index: {
+      type: Number,
+      required: true,
+    },
   },
 
   computed: {
-    ...mapGetters('userStore', ['userList', 'searchQuery']),
+    ...mapGetters('userStore', ['searchQuery']),
+  },
+
+  methods: {
+    ...mapActions('userStore', ['removeAtIndex']),
   },
 
   components: {
@@ -79,7 +89,7 @@ export default Vue.extend({
 
   &__grid {
     display: grid;
-    grid-template-columns: 32px 200px;
+    grid-template-columns: 32px 200px 40px;
     align-items: center;
     gap: 12px;
     cursor: pointer;
@@ -90,6 +100,19 @@ export default Vue.extend({
     }
   }
 
+  &__add {
+    border: none;
+    color: tomato;
+    font-size: 16px;
+    font-weight: bold;
+    background: none;
+    cursor: pointer;
+    transition: color ease-out .3s;
+
+    &:hover {
+      color: darkred;
+    }
+  }
 
   &__image {
     img {
