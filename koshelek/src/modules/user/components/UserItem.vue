@@ -8,6 +8,11 @@
         {{source.name}}
       </div>
     </div>
+
+    <div class="user__occurrences" v-if="searchQuery !== ''  && source.occurrencesKeysList.length > 0">
+      <b>Found {{source.occurrencesKeysList.length}} in {{source.occurrencesKeysList}}</b>
+    </div>
+
     <expanded>
       <template v-slot:icon>
         <div class="user__expand-ico">[details]</div>
@@ -18,6 +23,9 @@
           <p>Sex: {{source.gender}}</p>
           <p>Location: {{source.location}}</p>
           <p>Age: {{source.dob.age}}</p>
+          <p>Date: {{source.dob.date}}</p>
+          <p>Time: {{source.location.timezone.description}}</p>
+          <p>Data: {{source.occurrencesKeysList}}</p>
         </div>
       </template>
     </expanded>
@@ -40,7 +48,7 @@ export default Vue.extend({
   },
 
   computed: {
-    ...mapGetters('userStore', ['userList']),
+    ...mapGetters('userStore', ['userList', 'searchQuery']),
   },
 
   components: {
@@ -91,6 +99,11 @@ export default Vue.extend({
       max-height: 100%;
       width: 100%;
     }
+  }
+
+  &__occurrences {
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
 }
 </style>

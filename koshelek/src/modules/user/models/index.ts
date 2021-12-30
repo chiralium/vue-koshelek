@@ -1,3 +1,5 @@
+import {Searchable} from "@/helpers";
+
 type TUserNameA = {
     title?: string;
     first?: string;
@@ -115,7 +117,7 @@ type TUserA = {
     picture?: UserPicture;
 }
 
-export class User {
+export class User extends Searchable {
     gender?: string;
     name?: UserName;
     location?: UserLocation;
@@ -125,6 +127,8 @@ export class User {
     picture?: UserPicture;
 
     constructor({...args}: TUserA) {
+        super(['picture']);
+
         this.gender = args.gender;
         this.name = new UserName({...args.name});
         this.location = new UserLocation({...args.location});

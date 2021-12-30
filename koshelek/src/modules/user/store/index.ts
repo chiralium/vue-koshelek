@@ -6,6 +6,8 @@ import UserApi from "@/modules/user/api";
 type TState = {
     isLoading: boolean;
     userList: Array<User>;
+    filteredList: Array<User>;
+    searchQuery: string;
 }
 
 type TActionA = {
@@ -17,6 +19,8 @@ const userApi = new UserApi();
 const state = (): TState => ({
     isLoading: false,
     userList: [],
+    searchQuery: '',
+    filteredList: [],
 });
 
 const actions ={
@@ -33,6 +37,12 @@ const actions ={
         commit(USER_ACTIONS_TYPE.SET_USER_LIST, await userApi.getUserList());
         commit(USER_ACTIONS_TYPE.SET_IS_LOADING, false);
     },
+
+    setSearchQuery({commit}: TActionA, query: string): void {
+        commit(USER_ACTIONS_TYPE.SET_SEARCH_QUERY, query);
+        commit(USER_ACTIONS_TYPE.SET_OCCURRENCES);
+        commit(USER_ACTIONS_TYPE.SET_FILTERED);
+    }
 };
 
 const getters = {
@@ -42,6 +52,20 @@ const getters = {
 
     userList(state: TState): Array<User> {
         return state.userList;
+    },
+
+    searchQuery(state: TState): string {
+        return state.searchQuery;
+    },
+
+    filteredList(state: TState): Array<User> {
+        if (state.searchQuery === '') {
+            return state.userList;
+        }
+
+        console.log(state.filteredList);
+
+        return state.filteredList;
     }
 }
 
@@ -51,8 +75,29 @@ const mutations = {
     },
 
     [USER_ACTIONS_TYPE.SET_USER_LIST] (state: TState, userList: Array<User>): void {
-        state.userList = userList;
+        state.userList = userList.map(user => Object.freeze<User>(user));
     },
+
+    [USER_ACTIONS_TYPE.SET_OCCURRENCES] (state: TState): void {
+        state.userList.forEach(user => user.findOccurrences<User>(user, state.searchQuery));
+    },
+
+    [USER_ACTIONS_TYPE.SET_SEARCH_QUERY] (state: TState, query: string): void {
+        state.searchQuery = query;
+    },
+
+    [USER_ACTIONS_TYPE.SET_FILTERED] (state: TState): void {
+        state.filteredList = state
+            .userList
+            .slice()
+            .sort((x: User, y: User) => {
+                if (x.occurrencesKeysList.length > y.occurrencesKeysList.length) {
+                    return -1;
+                }
+
+                return 1;
+            }).filter(user => user.occurrencesKeysList.length > 0);
+    }
 }
 
 export default {

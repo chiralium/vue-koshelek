@@ -1,5 +1,3 @@
-import {TAnyKeyVal} from "@/types";
-
 type TSerialize<T> = {
     converter: ({...args}) => T,
     json: string,

@@ -11,7 +11,7 @@
     <virtual-list
         :class="[isLoading ? 'preloader' : '', 'user-list__content']"
         :data-key="'id'"
-        :data-sources="userList"
+        :data-sources="filteredList"
         :data-component="UserItem"
     />
   </div>
@@ -33,23 +33,27 @@ export default Vue.extend({
   methods: {
     ...mapActions(
         'userStore',
-        ['setIsLoading', 'fetchUserList'],
+        ['setIsLoading', 'fetchUserList', 'setOccurrences', 'setSearchQuery'],
     ),
 
     filter(query: string) {
-      console.log(query);
-    },
+      this.setSearchQuery(query)
+    }
+  },
+
+  mounted() {
+    this.fetchUserList();
+  },
+
+  updated() {
+    console.log("MOUNTED")
   },
 
   computed: {
     ...mapGetters(
         'userStore',
-        ['isLoading', 'userList'],
+        ['isLoading', 'userList', 'searchQuery', 'filteredList'],
     ),
-  },
-
-  mounted() {
-    this.fetchUserList();
   },
 
   data: function () {
