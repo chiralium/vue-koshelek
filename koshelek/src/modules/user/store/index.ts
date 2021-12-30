@@ -69,8 +69,9 @@ const actions ={
         commit(USER_ACTIONS_TYPE.SET_SORTING, sorting);
     },
 
-    removeAtIndex({commit}: TActionA, index: number): void {
-        commit(USER_ACTIONS_TYPE.REMOVE, index);
+    removeAtId({commit}: TActionA, id: string): void {
+        commit(USER_ACTIONS_TYPE.REMOVE, id);
+        commit(USER_ACTIONS_TYPE.SET_FILTERED);
     }
 };
 
@@ -141,8 +142,14 @@ const mutations = {
         state.sorting = sorting;
     },
 
-    [USER_ACTIONS_TYPE.REMOVE] (state: TState, index: number): void {
-        state.userList.splice(index, 1);
+    [USER_ACTIONS_TYPE.REMOVE] (state: TState, id: string): void {
+        const deletedIndex = state.userList.findIndex(userItem => userItem.id === id);
+
+        if (deletedIndex === -1) {
+            return;
+        }
+
+        state.userList.splice(deletedIndex, 1);
     }
 }
 

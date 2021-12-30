@@ -7,10 +7,10 @@
       <div class="user__name">
         {{source.name}}
       </div>
-      <button class="user__add" @click="removeAtIndex(index)">★</button>
+      <button class="user__add" @click="removeAtId(source.id)">★</button>
     </div>
 
-    <div class="user__occurrences" v-if="searchQuery !== ''  && source.occurrencesKeysList.length > 0">
+    <div class="user__occurrences" v-if="somethingFound">
       <b>Found {{source.occurrencesKeysList.length}} in {{source.occurrencesKeysList}}</b>
     </div>
 
@@ -54,10 +54,15 @@ export default Vue.extend({
 
   computed: {
     ...mapGetters('userStore', ['searchQuery']),
+
+    somethingFound: function(): boolean {
+      const {occurrencesKeysList} = this.source
+      return this.searchQuery !== '' && occurrencesKeysList.length > 0
+    }
   },
 
   methods: {
-    ...mapActions('userStore', ['removeAtIndex']),
+    ...mapActions('userStore', ['removeAtId']),
   },
 
   components: {

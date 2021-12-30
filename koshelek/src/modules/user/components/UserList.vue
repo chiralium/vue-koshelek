@@ -9,7 +9,7 @@
                 :filter="filter"
             />
             <div v-if="totalOccurrences !== 0">
-              <b>Results: {{ totalOccurrences }}</b>
+              <b>Results: {{ filteredList.length }}</b>
             </div>
           </div>
         </template>

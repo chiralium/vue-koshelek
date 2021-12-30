@@ -143,6 +143,6 @@ export class User extends Searchable {
     }
 
     get id(): string {
-        return (this.name ?? '') + (this.email ?? '');
+        return (this.name ?? '') + (this.email ?? '') + (this.gender);
     }
 }
