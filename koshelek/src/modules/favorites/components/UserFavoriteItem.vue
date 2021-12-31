@@ -7,7 +7,7 @@
       {{source.name}}
     </template>
     <template v-slot:action>
-      <button class="user__action" @click="removeFromFavorite(source.id)">★</button>
+      <button class="user__action" @click="removeFromFavorite(source.id)">-</button>
     </template>
   </user-item-container>
 </template>

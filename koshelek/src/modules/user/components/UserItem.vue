@@ -1,13 +1,13 @@
 <template>
   <user-item-container>
     <template v-slot:image>
-      <img :src="source.picture.thumbnail"  :alt="source.name"/>
+      <img :src="source.picture.thumbnail" :alt="source.name"/>
     </template>
     <template v-slot:name>
       {{source.name}}
     </template>
     <template v-slot:action>
-      <button class="user__action" @click="moveToFavorite(source.id)">★</button>
+      <button class="user__action" @click="moveToFavorite(source.id)">+</button>
     </template>
     <template v-slot:expanded>
       <expanded>
