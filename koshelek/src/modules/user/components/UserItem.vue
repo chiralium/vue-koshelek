@@ -9,6 +9,11 @@
     <template v-slot:action>
       <button class="user__action" @click="moveToFavorite(source.id)">+</button>
     </template>
+    <template v-slot:occurrences>
+      <div class="user__occurrences" v-if="somethingFound">
+        <b>Found {{source.occurrencesKeysList.length}} in {{source.occurrencesKeysList}}</b>
+      </div>
+    </template>
     <template v-slot:expanded>
       <expanded>
         <template v-slot:icon>

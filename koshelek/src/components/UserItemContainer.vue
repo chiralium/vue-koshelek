@@ -10,9 +10,8 @@
       <slot name="action"></slot>
     </div>
 
-    <slot v-if="hasOccurrences" name="occurrences"></slot>
-
-    <slot v-if="hasExpanded" name="expanded"></slot>
+    <slot name="occurrences"></slot>
+    <slot name="expanded"></slot>
   </div>
 </template>
 
@@ -71,7 +70,7 @@ export default Vue.extend({
   &__action {
     border: none;
     color: tomato;
-    font-size: 16px;
+    font-size: 32px;
     font-weight: bold;
     background: none;
     cursor: pointer;
