@@ -68,8 +68,7 @@ export default {
     margin: 0;
     overflow-y: scroll;
     position: relative;
-    min-height: ~"calc(100vh - 120px)";
-    max-height: ~"calc(100vh - 120px)";
+    max-height: ~"calc(75vh)";
   }
 }
 </style>

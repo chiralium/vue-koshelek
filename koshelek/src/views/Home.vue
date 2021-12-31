@@ -1,16 +1,34 @@
 <template>
   <div class="home">
-    <container>
-      <template v-slot:content>
-        <user-list></user-list>
-      </template>
-    </container>
+    <navbar
+        :nav-list="[
+            {
+              url: '#',
+              title: 'History',
+            },
+            {
+              url: '#',
+              title: 'Adding history',
+            },
+            {
+              url: '#',
+              title: 'Removing history',
+            }
+        ]"
+    />
+    <div class="home__grid">
+      <container>
+        <template v-slot:content>
+          <user-list/>
+        </template>
+      </container>
 
-    <container>
-      <template v-slot:content>
-        <user-list-favorite></user-list-favorite>
-      </template>
-    </container>
+      <container>
+        <template v-slot:content>
+          <user-list-favorite/>
+        </template>
+      </container>
+    </div>
   </div>
 </template>
 
@@ -20,10 +38,12 @@ import Vue from 'vue';
 import UserList from '@/modules/user/components/UserList.vue';
 import Container from '@/components/Container.vue';
 import UserListFavorite from "@/modules/favorites/components/UserListFavorite.vue";
+import Navbar from "@/components/Navbar.vue";
 
 export default Vue.extend({
   name: 'Home',
   components: {
+    Navbar,
     UserListFavorite,
     UserList,
     Container,
@@ -35,12 +55,15 @@ export default Vue.extend({
 
 .home {
   padding: 16px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
 
-  @media screen and (max-width: 1085px) {
-    display: block;
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    @media screen and (max-width: 1085px) {
+      display: block;
+    }
   }
 }
 
