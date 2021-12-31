@@ -1,0 +1,4 @@
+export const FAVORITE_LIST_ACTIONS_TYPE = {
+    SET_REMOVED: 'SET_REMOVED',
+    SET_ADDED: 'SET_ADDED',
+}

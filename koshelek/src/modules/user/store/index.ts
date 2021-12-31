@@ -2,6 +2,8 @@ import {Commit} from "vuex";
 import {USER_ACTIONS_TYPE} from "@/modules/user/store/actions";
 import {User} from "@/modules/user/models";
 import UserApi from "@/modules/user/api";
+import {FAVORITE_LIST_ACTIONS_TYPE} from "@/modules/favorites/store/actions";
+import {TActionA, TActionWithStateA} from "@/store/types";
 
 const sortingCallback = (x: number, y: number, method: TSorting): number => {
     const [moreFactor, lessFactor] =
@@ -24,13 +26,8 @@ type TState = {
     isLoading: boolean;
     userList: Array<User>;
     filteredList: Array<User>;
-    favorites: Array<User>;
     searchQuery: string;
     sorting: TSorting;
-}
-
-type TActionA = {
-    commit: Commit,
 }
 
 const userApi = new UserApi();
@@ -39,7 +36,6 @@ const state = (): TState => ({
     isLoading: false,
     userList: [],
     filteredList: [],
-    favorites: [],
     searchQuery: '',
     sorting: 'ASC',
 });
@@ -47,10 +43,6 @@ const state = (): TState => ({
 const actions ={
     setIsLoading({commit}: TActionA, loadingState: boolean): void {
         commit(USER_ACTIONS_TYPE.SET_IS_LOADING, loadingState);
-    },
-
-    setUserList({commit}: TActionA, userList: Array<User>): void {
-        commit(USER_ACTIONS_TYPE.SET_USER_LIST, userList);
     },
 
     async fetchUserList({commit}: TActionA): Promise<void> {
@@ -69,10 +61,16 @@ const actions ={
         commit(USER_ACTIONS_TYPE.SET_SORTING, sorting);
     },
 
-    removeAtId({commit}: TActionA, id: string): void {
-        commit(USER_ACTIONS_TYPE.REMOVE, id);
-        commit(USER_ACTIONS_TYPE.SET_FILTERED);
-    }
+    moveToFavorite({commit, state}: TActionWithStateA<TState>, id: string): void {
+        const user: User | undefined = state.userList.find(user => user.id === id);
+        if (user) {
+            commit(`favoritesStore/${FAVORITE_LIST_ACTIONS_TYPE.SET_ADDED}`, user, {
+                root: true,
+            });
+            commit(USER_ACTIONS_TYPE.SET_REMOVED, id);
+            commit(USER_ACTIONS_TYPE.SET_FILTERED);
+        }
+    },
 };
 
 const getters = {
@@ -142,7 +140,7 @@ const mutations = {
         state.sorting = sorting;
     },
 
-    [USER_ACTIONS_TYPE.REMOVE] (state: TState, id: string): void {
+    [USER_ACTIONS_TYPE.SET_REMOVED] (state: TState, id: string): void {
         const deletedIndex = state.userList.findIndex(userItem => userItem.id === id);
 
         if (deletedIndex === -1) {
@@ -150,6 +148,10 @@ const mutations = {
         }
 
         state.userList.splice(deletedIndex, 1);
+    },
+
+    [USER_ACTIONS_TYPE.SET_ADDED] (state: TState, user: User): void {
+        state.userList.push(user);
     }
 }
 

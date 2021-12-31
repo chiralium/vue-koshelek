@@ -7,47 +7,18 @@
       <div class="user__name">
         {{source.name}}
       </div>
-      <button class="user__add" @click="moveToFavorite(source.id)">★</button>
+      <button class="user__add" @click="removeFromFavorite(source.id)">★</button>
     </div>
-
-    <div class="user__occurrences" v-if="somethingFound">
-      <b>Found {{source.occurrencesKeysList.length}} in {{source.occurrencesKeysList}}</b>
-    </div>
-
-    <expanded>
-      <template v-slot:icon>
-        <div class="user__expand-ico">[details]</div>
-      </template>
-      <template v-slot:content>
-        <div class="user__details">
-          <p>Email: {{source.email}}</p>
-          <p>Sex: {{source.gender}}</p>
-          <p>Location: {{source.location}}</p>
-          <p>Age: {{source.dob.age}}</p>
-          <p>Date: {{source.dob.date}}</p>
-          <p>Timezone: {{source.location.timezone.description}}</p>
-        </div>
-      </template>
-    </expanded>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {User} from "../models";
-import {mapActions, mapGetters} from "vuex";
-
-import Expanded from "@/components/Expanded.vue";
+import {User} from "@/modules/user/models";
+import {mapActions} from "vuex";
 
 export default Vue.extend({
   props: {
-    isFavoriteItem: {
-      type: Boolean,
-      default(): boolean {
-        return true;
-      },
-    },
-
     source: {
       type: User,
       required: true,
@@ -59,21 +30,8 @@ export default Vue.extend({
     },
   },
 
-  computed: {
-    ...mapGetters('userStore', ['searchQuery']),
-
-    somethingFound: function(): boolean {
-      const {occurrencesKeysList} = this.source
-      return this.searchQuery !== '' && occurrencesKeysList.length > 0
-    }
-  },
-
   methods: {
-    ...mapActions('userStore', ['moveToFavorite']),
-  },
-
-  components: {
-    Expanded,
+    ...mapActions('favoritesStore', ['removeFromFavorite']),
   },
 })
 </script>

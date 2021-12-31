@@ -8,7 +8,7 @@
 
     <container>
       <template v-slot:content>
-        Test
+        <user-list-favorite></user-list-favorite>
       </template>
     </container>
   </div>
@@ -19,10 +19,12 @@ import Vue from 'vue';
 
 import UserList from '@/modules/user/components/UserList.vue';
 import Container from '@/components/Container.vue';
+import UserListFavorite from "@/modules/favorites/components/UserListFavorite.vue";
 
 export default Vue.extend({
   name: 'Home',
   components: {
+    UserListFavorite,
     UserList,
     Container,
   }
