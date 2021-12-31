@@ -3,15 +3,15 @@
     <navbar
         :nav-list="[
             {
-              url: '#',
+              url: '/history',
               title: 'History',
             },
             {
-              url: '#',
+              url: '/history?filter=adding',
               title: 'Adding history',
             },
             {
-              url: '#',
+              url: '/history?filter=removing',
               title: 'Removing history',
             }
         ]"

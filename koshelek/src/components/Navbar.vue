@@ -4,9 +4,9 @@
       <nav>
         <ul class="nav__navbar">
           <li class="nav__navitem" v-for="navItem in navList" :key="navItem.url">
-            <a :href="navItem.url">
+            <router-link :to="navItem.url">
               {{navItem.title}}
-            </a>
+            </router-link>
           </li>
         </ul>
       </nav>
