@@ -49,6 +49,10 @@ export default {
     display: grid;
     grid-template-columns: 1fr 120px;
     gap: 12px;
+
+    @media screen and (max-width: 1085px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__sorting {
