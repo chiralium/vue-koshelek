@@ -10,9 +10,9 @@
     </template>
   </user-list-container>
 </template>
-<script>
-import UserListContainer from "../../../components/UserListContainer";
-import UserFavoriteItem from "@/modules/favorites/components/UserFavoriteItem";
+<script lang="ts">
+import UserListContainer from "../../../components/UserListContainer.vue";
+import UserFavoriteItem from "@/modules/favorites/components/UserFavoriteItem.vue";
 import {mapGetters} from "vuex";
 import Vue from 'vue';
 

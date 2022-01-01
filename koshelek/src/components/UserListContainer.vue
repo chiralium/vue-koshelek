@@ -21,8 +21,8 @@
     <slot name="scroll-list"></slot>
   </div>
 </template>
-<script>
-import Container from "./Container";
+<script lang="ts">
+import Container from "./Container.vue";
 export default {
   props: {
     hasSearchBar: {

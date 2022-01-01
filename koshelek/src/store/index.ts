@@ -9,6 +9,7 @@ import {historyPluginListener} from "@/modules/history/store/plugins";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  state: null,
   modules: {
     userStore,
     favoritesStore,

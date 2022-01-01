@@ -6,7 +6,7 @@ type THistoryItemA<T> = {
     item: T;
 }
 
-export class HistoryItem<T> {
+export class History<T> {
     datetime: Date;
     type: THistoryItem;
     item: T;

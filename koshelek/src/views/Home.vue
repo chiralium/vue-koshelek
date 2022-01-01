@@ -1,7 +1,12 @@
 <template>
-  <div class="home">
-    <navbar
-        :nav-list="[
+  <page class="home">
+    <template v-slot:navbar>
+      <navbar
+          :nav-list="[
+            {
+              url: '/',
+              title: 'Home',
+            },
             {
               url: '/history',
               title: 'History',
@@ -15,21 +20,24 @@
               title: 'Removing history',
             }
         ]"
-    />
-    <div class="home__grid">
-      <container>
-        <template v-slot:content>
-          <user-list/>
-        </template>
-      </container>
+      />
+    </template>
+    <template v-slot:content>
+      <div class="home__grid">
+        <container>
+          <template v-slot:content>
+            <user-list/>
+          </template>
+        </container>
 
-      <container>
-        <template v-slot:content>
-          <user-list-favorite/>
-        </template>
-      </container>
-    </div>
-  </div>
+        <container>
+          <template v-slot:content>
+            <user-list-favorite/>
+          </template>
+        </container>
+      </div>
+    </template>
+  </page>
 </template>
 
 <script lang="ts">
@@ -39,10 +47,12 @@ import UserList from '@/modules/user/components/UserList.vue';
 import Container from '@/components/Container.vue';
 import UserListFavorite from "@/modules/favorites/components/UserListFavorite.vue";
 import Navbar from "@/components/Navbar.vue";
+import Page from "@/components/Page.vue";
 
 export default Vue.extend({
   name: 'Home',
   components: {
+    Page,
     Navbar,
     UserListFavorite,
     UserList,
@@ -54,8 +64,6 @@ export default Vue.extend({
 <style lang="less">
 
 .home {
-  padding: 16px;
-
   &__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

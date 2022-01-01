@@ -34,7 +34,10 @@ export class Searchable {
         const objectValues: Array<TObjectValues> = this.getValues<T>(object);
         objectValues.forEach(objectItem => {
             const [[key, value]] = Object.entries(objectItem);
-            if (('' + value).toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1) {
+            const normalizedValue = ('' + value).toLocaleLowerCase();
+            const normalizedQuery = query.toLocaleLowerCase();
+
+            if (normalizedValue.indexOf(normalizedQuery) !== -1) {
                 this.occurrencesKeysList.push(key);
             }
         });

@@ -13,8 +13,8 @@
     </template>
   </container>
 </template>
-<script>
-import Container from "./Container";
+<script lang="ts">
+import Container from "./Container.vue";
 import Vue from 'vue';
 
 export default Vue.extend({
