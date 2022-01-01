@@ -1,13 +1,13 @@
-type THistoryItem = 'ADDING' | 'REMOVING';
+type THistoryItem = 'ADDING_TO_FAVORITES' | 'REMOVING_FROM_FAVORITES';
 
 type THistoryItemA<T> = {
-    datetime: string;
+    datetime: Date;
     type: THistoryItem;
     item: T;
 }
 
 export class HistoryItem<T> {
-    datetime: string;
+    datetime: Date;
     type: THistoryItem;
     item: T;
 

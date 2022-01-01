@@ -39,6 +39,10 @@ const actions = {
 
     removeFromFavorite({commit, state}: TActionWithStateA<TState>, id: string): void {
         const user: User | undefined = state.favoriteList.find(user => user.id === id);
+        if (!user) {
+            return;
+        }
+
         commit(`userStore/${USER_ACTIONS_TYPE.SET_ADDED}`, user, {
             root: true,
         });

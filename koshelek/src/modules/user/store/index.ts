@@ -4,6 +4,8 @@ import {User} from "@/modules/user/models";
 import UserApi from "@/modules/user/api";
 import {FAVORITE_LIST_ACTIONS_TYPE} from "@/modules/favorites/store/actions";
 import {TActionA, TActionWithStateA} from "@/store/types";
+import {HISTORY_ACTIONS_TYPE} from "@/modules/history/store/actions";
+import {HistoryItem} from "@/modules/history/models";
 
 const sortingCallback = (x: number, y: number, method: TSorting): number => {
     const [moreFactor, lessFactor] =
