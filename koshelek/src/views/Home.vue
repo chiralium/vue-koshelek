@@ -57,6 +57,10 @@ export default Vue.extend({
     UserListFavorite,
     UserList,
     Container,
+  },
+
+  mounted() {
+    console.log("MOUNTED");
   }
 });
 </script>
